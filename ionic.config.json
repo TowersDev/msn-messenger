@@ -1,0 +1,7 @@
+{
+  "name": "msn-messenger",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
