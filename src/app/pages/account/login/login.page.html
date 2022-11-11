@@ -1,0 +1,28 @@
+<ion-content>
+  <form [formGroup]="ionicForm" (ngSubmit)="submitForm()">
+    <ion-item lines="full" class="inputs">
+      <ion-input type="email" formControlName="email" placeholder="Email" required></ion-input>
+    </ion-item>
+    <ion-item lines="full" class="inputs">
+      <app-password-component>
+        <ion-input formControlName="password" type="password" placeholder="Password" required></ion-input>
+      </app-password-component>
+    </ion-item>
+    <span class=" register" (click)="this.authService.passwordRecover('torresjmtd@gmail.com')"><b>Recuperar
+        contraseña</b></span>
+    <div class="button-class">
+      <ion-button type="submit" color="danger" expand="block">Iniciar sesión</ion-button>
+    </div>
+  </form>
+  <span class="center">También puedes hacer login desde:</span>
+  <div class="social-links">
+    <ion-button size="large" color="danger" (click)="this.registrarGoogle()">
+      <ion-icon name="logo-google"></ion-icon>
+    </ion-button>
+    <ion-button [disabled]="true" size="large" (click)="this.registrarFacebook()">
+      <ion-icon name="logo-facebook"></ion-icon>
+    </ion-button>
+  </div>
+  <span class="center">¿Aún no tienes una cuenta? <b
+      (click)="this.router.navigate(['/register']);">Registrarse</b></span>
+</ion-content>

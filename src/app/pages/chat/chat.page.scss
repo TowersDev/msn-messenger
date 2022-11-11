@@ -1,0 +1,74 @@
+span {
+  color: red;
+}
+
+img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.chatContainer {
+  height: 90%;
+  overflow: auto;
+}
+
+.enviar {
+  height: 10%;
+  display: flex;
+  align-items: center;
+}
+
+.inputEnviar {
+  border-radius: 10px;
+  width: 95%;
+  height: 40px;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+input::placeholder {
+  margin-left: 20px;
+  font: 20px/3 sans-serif;
+}
+
+ion-content {
+  overflow: hidden;
+}
+
+ion-list {
+  // height: 90%;
+  overflow: auto;
+
+  background-color: transparent !important;
+}
+
+
+.innermsg {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  margin: 5px;
+  font-weight: 500;
+  font-size: 16px;
+  border-radius: 15px;
+  margin-bottom: 5px;
+}
+
+.innermsg.left {
+  float: left;
+  background-color: #F1F0F0;
+  color: black;
+}
+
+.innermsg.right {
+  float: right;
+  //margin-right: 10%;
+  background-color: #0084FF;
+  color: white;
+}
+
+.msgbubble {
+  margin-bottom: 10px;
+}

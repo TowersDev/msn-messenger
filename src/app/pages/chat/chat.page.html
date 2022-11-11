@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Chat
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="chatContainer" #pru>
+    <ion-list *ngFor="let i of this.listChat" color="none" lines="none">
+
+      <div class="innermsg left" *ngIf="this.user.email !== i.sender">
+        <img [src]="(this.user?.photoURL === null || this.user?.photoURL === undefined )
+          ? '../../assets/images/avatar-default.jpg'
+          : this.user.photoURL" alt="avatar" class="avatar" referrerpolicy="no-referrer" />
+        {{i.message}}
+      </div>
+      <div class="innermsg right" *ngIf="this.user.email === i.sender">
+        <img [src]="(this.user?.photoURL === null || this.user?.photoURL === undefined )
+          ? '../../assets/images/avatar-default.jpg'
+          : this.user.photoURL" alt="avatar" class="avatar" referrerpolicy="no-referrer" />
+        {{i.message}}
+      </div>
+
+    </ion-list>
+    <ion-fab vertical="top" horizontal="end" slot="fixed" (click)="scrollToBottom()">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+  <div class="enviar">
+    <input [(ngModel)]="message" placeholder="Mensaje de chat" type="text" class="inputEnviar" clearInput>
+    <ion-icon slot="end" name="caret-forward-outline" (click)="prueba()" size="large" style="zoom:1.5;"></ion-icon>
+  </div>
+
+</ion-content>

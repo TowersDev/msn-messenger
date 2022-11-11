@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="back()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="ionicForm" (ngSubmit)="submitForm()">
+    <ion-item lines="full" class="inputs">
+      <ion-input type="email" formControlName="email" placeholder="Email" required></ion-input>
+    </ion-item>
+    <ion-item lines="full" class="inputs">
+      <app-password-component>
+        <ion-input formControlName="password" type="password" placeholder="Password" required></ion-input>
+      </app-password-component>
+    </ion-item>
+    <ion-item lines="full" class="inputs">
+      <app-password-component>
+        <ion-input formControlName="repeatPassword" type="password" placeholder="Repetir contraseña" required>
+        </ion-input>
+      </app-password-component>
+    </ion-item>
+    <div class="button-class">
+      <ion-button type="submit" color="danger" expand="block">Registrar</ion-button>
+    </div>
+  </form>
+</ion-content>
