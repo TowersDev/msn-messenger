@@ -1,7 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
 import { IonContent, IonFooter, IonList } from '@ionic/angular';
+import { ChatService } from 'src/app/services/chat.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -9,56 +12,35 @@ import { IonContent, IonFooter, IonList } from '@ionic/angular';
   styleUrls: ['chat.page.scss'],
 })
 export class ChatPage implements OnInit {
-  @ViewChild(IonContent, { static: false }) content: IonContent;
+  @ViewChild(IonContent) content: IonContent;
 
-  name: string;
-  message: string;
-  listChat: any;
-  user: any;
+  messages: Observable<any[]>;
+  newMsg = '';
 
-  data: any = {
-    sender: '',
-    message: '',
-    date: new Date(),
-  };
-
-  constructor(
-    private readonly firestore: AngularFirestore,
-    public ngFireAuth: AngularFireAuth
-  ) {}
+  constructor(private chatService: ChatService, private router: Router, public ngFireAuth: AngularFireAuth) { }
 
   ngOnInit() {
+    this.messages = this.chatService.getChatMessages();
     this.ngFireAuth.authState.subscribe((user) => {
-      this.user = user;
-      this.loadChat();
+      console.log(user);
     });
   }
 
-  loadChat() {
-    this.firestore
-      .collection('messages')
-      .valueChanges()
-      .subscribe((message) => {
-        this.listChat = message?.sort((a: any, b: any) => a.date - b.date);
-      });
-  }
-
   sendMessage() {
-    this.data = {
-      sender: this.user.email,
-      message: this.message,
-      date: new Date(),
-    }; // ARREGLAR
-    this.firestore
-      .collection('messages')
-      .add(this.data)
-      .then((res) => {
-        this.message = '';
-        this.scrollToBottom();
-      });
+    this.chatService.addChatMessage(this.newMsg).then(() => {
+      this.newMsg = '';
+      setTimeout(()=>{
+        this.content.scrollToBottom(10);
+      }, 50);
+
+
+    });
   }
 
-  scrollToBottom() {
-    this.content.scrollToBottom(300);
+  signOut() {
+    this.chatService.signOut().then(() => {
+      this.router.navigateByUrl('/', { replaceUrl: true });
+    });
   }
+
 }
