@@ -1,4 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  SimpleChanges,
+} from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
@@ -11,29 +18,32 @@ import { Observable } from 'rxjs';
   templateUrl: 'chat.page.html',
   styleUrls: ['chat.page.scss'],
 })
-export class ChatPage implements OnInit {
+export class ChatPage implements OnInit, AfterViewInit {
   @ViewChild(IonContent) content: IonContent;
 
   messages: Observable<any[]>;
   newMsg = '';
+  user: any;
 
-  constructor(private chatService: ChatService, private router: Router, public ngFireAuth: AngularFireAuth) { }
+  constructor(
+    private chatService: ChatService,
+    private router: Router,
+    public ngFireAuth: AngularFireAuth
+  ) {}
 
-  ngOnInit() {
-    this.messages = this.chatService.getChatMessages();
+  ngOnInit() {}
+
+  ngAfterViewInit() {
+    this.messages = this.chatService.getChatMessages(this.content);
     this.ngFireAuth.authState.subscribe((user) => {
-      console.log(user);
+      this.user = user;
     });
   }
 
   sendMessage() {
     this.chatService.addChatMessage(this.newMsg).then(() => {
       this.newMsg = '';
-      setTimeout(()=>{
-        this.content.scrollToBottom(10);
-      }, 50);
-
-
+      this.content.scrollToBottom(40);
     });
   }
 
@@ -42,5 +52,4 @@ export class ChatPage implements OnInit {
       this.router.navigateByUrl('/', { replaceUrl: true });
     });
   }
-
 }

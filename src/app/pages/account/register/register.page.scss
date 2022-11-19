@@ -1,3 +1,41 @@
 .inputs {
   padding: 20px;
 }
+
+.images {
+  display: flex;
+  justify-content: center;
+}
+
+ion-thumbnail {
+  --size: 140px;
+  --border-radius: 14px;
+  padding: 15px;
+}
+
+img {
+  background-color: grey;
+
+  &:hover {
+    border: 2px solid white;
+    filter: opacity(0.5) drop-shadow(0 0 0 red);
+  }
+
+}
+
+.img::after{
+  border: 2px solid red;
+}
+
+.prueba1:active {
+
+}
+
+
+.green {
+  background-color: green;
+}
+
+.red {
+  background-color: red;
+}
