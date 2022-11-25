@@ -10,11 +10,18 @@
 </ion-header>
 <ion-content>
   <div class="container">
-    <div *ngFor="let message of messages | async" >
-      <div class="row" [ngClass]="{ 'left': message.myMsg, 'right': !message.myMsg }" >
-        <img class="img" alt="avatar" [src]="message.avatar ? message.avatar : 'https://ionicframework.com/docs/img/demos/avatar.svg'" *ngIf="message.myMsg" />
-        <span class="message"><span *ngIf="message.myMsg" class="time">{{ message.createdAt?.toMillis() | date:'short' }} - </span><span [ngClass]="{ 'message-border-left': message.myMsg, 'message-border-right': !message.myMsg }">{{message.msg}}</span><span *ngIf="!message.myMsg" class="time"> - {{ message.createdAt?.toMillis() | date:'short' }}</span></span>
-        <img class="img" alt="avatar" [src]="message.avatar ? message.avatar : 'https://ionicframework.com/docs/img/demos/avatar.svg'" *ngIf="!message.myMsg"/>
+    <div *ngFor="let message of messages | async">
+      <div class="row" [ngClass]="{ 'left': message.myMsg, 'right': !message.myMsg }">
+        <img class="img" alt="avatar"
+          [src]="message.avatar ? message.avatar : 'https://ionicframework.com/docs/img/demos/avatar.svg'"
+          *ngIf="message.myMsg" />
+        <span class="message"
+          [ngClass]="{ 'message-border-left': message.myMsg, 'message-border-right': !message.myMsg }">{{message.msg}}
+          <span class="time"> - {{ message.createdAt?.toMillis() | date:'HH:MM' }}</span>
+        </span>
+        <img class="img" alt="avatar"
+          [src]="message.avatar ? message.avatar : 'https://ionicframework.com/docs/img/demos/avatar.svg'"
+          *ngIf="!message.myMsg" />
       </div>
     </div>
   </div>

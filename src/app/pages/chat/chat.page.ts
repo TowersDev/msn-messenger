@@ -52,4 +52,8 @@ export class ChatPage implements OnInit, AfterViewInit {
       this.router.navigateByUrl('/', { replaceUrl: true });
     });
   }
+
+  getTime(time: Date) {
+    return  time;
+  }
 }

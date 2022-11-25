@@ -15,8 +15,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class RegisterPage implements OnInit {
   ionicForm: FormGroup;
-  avatar: string;
-  colorFondo = false;
+
   constructor(
     public formBuilder: FormBuilder,
     public toastController: ToastController,
@@ -34,9 +33,9 @@ export class RegisterPage implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.avatar) {
-      this.avatar = 'https://ionicframework.com/docs/img/demos/avatar.svg';
-    }
+    // if (!this.avatar) {
+    //   this.avatar = 'https://ionicframework.com/docs/img/demos/avatar.svg';
+    // }
   }
 
   async presentToast(message: string) {
@@ -68,13 +67,13 @@ export class RegisterPage implements OnInit {
         .then((res) => {
           const profile = {
             displayName: this.ionicForm.value.nombre,
-            photoURL: this.avatar,
+            // photoURL: this.avatar,
           };
           this.authService.updateName(profile);
           this.afs.doc(`users/${res.user.uid}`).set({
             uid: res.user.uid,
             email: this.ionicForm.value.email,
-            avatar: this.avatar,
+            // avatar: this.avatar,
           });
           this.router.navigate(['tabs/account']);
         })
@@ -86,13 +85,5 @@ export class RegisterPage implements OnInit {
 
   back() {
     this.navController.back();
-  }
-
-  setImage(url: string) {
-    this.avatar = url;
-  }
-
-  someAction() {
-    this.colorFondo = !this.colorFondo;
   }
 }

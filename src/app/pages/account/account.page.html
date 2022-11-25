@@ -6,25 +6,14 @@
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <!-- <div class="img-wrapper"> -->
-      <div class="image">
-        <img [src]="(this.user?.photoURL === null || this.user?.photoURL === undefined )
+      <img class="avatar" [src]="(this.user?.photoURL === null || this.user?.photoURL === undefined )
           ? '../../assets/images/avatar-default.jpg'
           : this.user.photoURL" alt="avatar" />
-      </div>
-      <ion-button color="light" (click)="this.insertarAvatar()">
-        <ion-icon slot="icon-only" name="camera-outline" color="medium">
-        </ion-icon>
-      </ion-button>
-      <!-- </div> -->
+      <ion-card-title>{{this.user?.displayName === null ? 'Anónimo' : this.user?.displayName }}</ion-card-title>
+      <ion-card-subtitle>{{this.user?.email}}</ion-card-subtitle>
     </ion-card-header>
-    <ion-card-content class="ion-text-center">
-      <h2>{{this.user?.displayName === null ? 'Anónimo' : this.user?.displayName }}</h2>
-      <ion-text color="medium">
-        <div style="display: flex;" class="ion-justify-content-center">
-          <p>{{this.user?.email}}</p>
-        </div>
-      </ion-text>
+    <ion-card-content>
+      Here's a small text description for the card content. Nothing more, nothing less.
     </ion-card-content>
   </ion-card>
 </ion-content>

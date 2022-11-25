@@ -9,6 +9,7 @@ import { ImagePicker, ImagePickerOptions } from '@awesome-cordova-plugins/image-
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 
 
@@ -33,7 +34,8 @@ export class AccountPage implements OnInit {
     public toastController: ToastController,
     private imagePicker: ImagePicker,
     private webView: WebView,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private afs: AngularFirestore
     // private file: File,
     // public crop: Crop
   ) { }
@@ -41,7 +43,6 @@ export class AccountPage implements OnInit {
   ngOnInit() {
     this.ngFireAuth.authState.subscribe((user) => {
       this.user = user;
-      console.log(this.user);
     });
   }
 
@@ -63,6 +64,7 @@ export class AccountPage implements OnInit {
   };
 
   actualizarAvatar(image: any) {
+
     this.storage.ref(`avatar/${this.user.uid}`).getDownloadURL().toPromise()
     .then(async (res) => {
       const update = {
@@ -71,6 +73,15 @@ export class AccountPage implements OnInit {
       return (await this.ngFireAuth.currentUser).updateProfile(update);
     })
     .catch(() => this.presentToast('Error al actualizar el avatar.'));
+    this.afs.collection('users').doc(this.user.uid).update({
+      avatar: image, // Photo URL from Firebase Storage will be saved in here.
+    }).then(() => {
+      console.log('success');
+    })
+    .catch(error => {
+      console.log('errors');
+    });
+
   }
 
   elegirDesdeCamara(sourceType) {
@@ -98,27 +109,39 @@ export class AccountPage implements OnInit {
   }
 
   elegirDesdeGallery(){
-    const options: ImagePickerOptions = {
-      quality: 100,
-      maximumImagesCount: 1,
-    };
-    this.imagePicker.getPictures(options).then((image) => {
-      if(image.length > 0) {
+    this.imagePicker.hasReadPermission().then(res => {
+      console.log('permissiopns status = ', res);
+      if (res === false) {
+        this.imagePicker.requestReadPermission().then(res1 => {
+          console.log('requested permissions status = ',res1);
+        });
+      } else {
+        const options: ImagePickerOptions = {
+          quality: 100,
+          maximumImagesCount: 1,
+          width: 500,
+          height: 500,
+        };
+        this.imagePicker.getPictures(options).then((result) => {
+          console.log('selected photos = ', result);
+          if(result.length > 0) {
 
-        // eslint-disable-next-line @typescript-eslint/prefer-for-of
-        for(let i=0; i<image.length; i++){
-          this.url =  this.webView.convertFileSrc(image[i]);
-        }
-        this.uploadImage(this.url)
-        .then(() => {
-          this.actualizarAvatar(this.imageUrl);
-        })
-        .catch((error) => {
-          this.presentToast(error);
+            // eslint-disable-next-line @typescript-eslint/prefer-for-of
+            for(let i=0; i<result.length; i++){
+              this.url =  this.webView.convertFileSrc(result[i]);
+            }
+            this.uploadImage(this.url)
+            .then(() => {
+              this.actualizarAvatar(this.imageUrl);
+            })
+            .catch((error) => {
+              this.presentToast(error);
+            });
+          }
+        }, error => {
+          console.log('No se ha seleccionado ninguna imagen');
         });
       }
-    }, error => {
-      console.log('No se ha seleccionado ninguna imagen');
     });
   }
 
