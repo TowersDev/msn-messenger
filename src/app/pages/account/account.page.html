@@ -5,15 +5,16 @@
 </ion-header>
 <ion-content>
   <ion-card>
+
     <ion-card-header>
-      <img class="avatar" [src]="(this.user?.photoURL === null || this.user?.photoURL === undefined )
-          ? '../../assets/images/avatar-default.jpg'
-          : this.user.photoURL" alt="avatar" />
-      <ion-card-title>{{this.user?.displayName === null ? 'Anónimo' : this.user?.displayName }}</ion-card-title>
-      <ion-card-subtitle>{{this.user?.email}}</ion-card-subtitle>
+      <ion-icon name="settings-outline" size="small" [routerLink]="['/settings']"></ion-icon>
     </ion-card-header>
     <ion-card-content>
-      Here's a small text description for the card content. Nothing more, nothing less.
+      <img id="click-trigger" class="avatar" [src]="(this.user?.photoURL === null || this.user?.photoURL === undefined )
+          ? '../../assets/images/avatar-default.jpg'
+          : this.user.photoURL" alt="avatar" (click)="insertarAvatar()" />
+      <ion-card-title>{{this.user?.displayName === null ? 'Anónimo' : this.user?.displayName }}</ion-card-title>
+      <ion-card-subtitle>{{this.user?.email}}</ion-card-subtitle>
     </ion-card-content>
   </ion-card>
 </ion-content>
