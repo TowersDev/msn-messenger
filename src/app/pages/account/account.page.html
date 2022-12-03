@@ -5,9 +5,8 @@
 </ion-header>
 <ion-content>
   <ion-card>
-
     <ion-card-header>
-      <ion-icon name="settings-outline" size="small" [routerLink]="['/settings']"></ion-icon>
+      <ion-icon name="settings-outline" size="small" [routerLink]="['/settings']" class="settings"></ion-icon>
     </ion-card-header>
     <ion-card-content>
       <img id="click-trigger" class="avatar" [src]="(this.user?.photoURL === null || this.user?.photoURL === undefined )
@@ -17,4 +16,5 @@
       <ion-card-subtitle>{{this.user?.email}}</ion-card-subtitle>
     </ion-card-content>
   </ion-card>
+  <ion-button (click)="logout()" fill="outline">Cerrar sesión</ion-button>
 </ion-content>

@@ -1,1 +1,12 @@
+.social-icons,
+.profile {
+  display: flex;
+}
 
+.social-icons {
+  justify-content: space-between;
+}
+
+ion-avatar img {
+  object-fit: cover;
+}

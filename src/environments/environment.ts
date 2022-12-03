@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: 'AIzaSyANsSoU-N3G6aFtb5WPS5EmC-h8YZ0ALkU',
-    authDomain: 'msn-messenger-e0a7d.firebaseapp.com',
-    projectId: 'msn-messenger-e0a7d',
-    storageBucket: 'msn-messenger-e0a7d.appspot.com',
-    messagingSenderId: '204853200132',
-    appId: '1:204853200132:web:afc0cbc4f6e287430ebc51'
+    apiKey: 'AIzaSyBuffK1v8edrBXaMFppkBKiRG4BgFbSff8',
+    authDomain: 'parrot-b1f65.firebaseapp.com',
+    projectId: 'parrot-b1f65',
+    storageBucket: 'parrot-b1f65.appspot.com',
+    messagingSenderId: '1070243428372',
+    appId: '1:1070243428372:web:b7818b45b7cb6eebd9cf01'
   }
 };
 

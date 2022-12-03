@@ -8,16 +8,20 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'chat',
-        loadChildren: () => import('../../pages/chat/chat.module').then(m => m.ChatPageModule)
-      },
-      {
         path: 'home',
         loadChildren: () => import('../../pages/home/home.module').then(m => m.HomePageModule)
       },
       {
-        path: 'account',
-        loadChildren: () => import('../../pages/account/account.module').then(m => m.AccountPageModule)
+        path: 'search',
+        loadChildren: () => import('../../pages/search/search.module').then(m => m.SearchPageModule)
+      },
+      {
+        path: 'notifications',
+        loadChildren: () => import('../../pages/notifications/notifications.module').then(m => m.NotificationsPageModule)
+      },
+      {
+        path: 'messages',
+        loadChildren: () => import('../../pages/messages/messages.module').then(m => m.MessagesPageModule)
       },
       {
         path: '',

@@ -1,27 +1,92 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Home</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <ion-menu contentId="main-content">
+    <ion-header>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <div class="profile">
+        <ion-avatar>
+          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"
+            (click)="goToProfile()" style="border-radius: 50%;" />
+        </ion-avatar>
+        <ion-label style="align-self: center;"> {{ user?.displayName }}</ion-label>
+      </div>
+    </ion-content>
+  </ion-menu>
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button>
+            <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          </ion-menu-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+          <ion-fab-button>
+            <ion-icon name="pencil-outline" id="open-modal" expand="block"></ion-icon>
+          </ion-fab-button>
+          <ion-fab-button>
+            <ion-icon name="videocam-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-fab-list>
+      </ion-fab>
+      <ion-card *ngFor="let parrot of parrots">
+        <ion-card-header>
+          <div>
+            <ion-card-title>{{parrot.nombre}} - {{parrot?.email}} </ion-card-title>
+            <ion-card-subtitle>{{parrot.message}}</ion-card-subtitle>
+          </div>
+        </ion-card-header>
 
-
-<ion-content [fullscreen]="true">
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  <ion-content>
-    <!-- <ion-list>
-      <ion-item>
-        <ion-label>asdasdsd</ion-label>
-      </ion-item>
-    </ion-list>
-
-    <ion-list>
-      <ion-item>
-        <ion-skeleton-text [animated]="true" style="width: 80px"></ion-skeleton-text>
-      </ion-item>
-    </ion-list> -->
-  </ion-content>
+        <ion-card-content>
+          <div class="social-icons">
+            <ion-icon name="heart-outline" style="color: red; font-size: 20px; cursor: pointer;"
+              (click)="someThingLikeLogOut()">
+            </ion-icon>
+            <ion-icon name="return-up-back-outline" style="color: grey; font-size: 20px; cursor: pointer;"
+              (click)="someThingLikeLogOut()"></ion-icon>
+            <ion-icon name="chatbubble-outline"
+              style="color: rgba(45, 155, 54, 0.479); font-size: 20px; cursor: pointer;"
+              (click)="someThingLikeLogOut()"></ion-icon>
+            <ion-icon name="share-social-outline" style="color: white; font-size: 20px; cursor: pointer;"
+              (click)="someThingLikeLogOut()"></ion-icon>
+          </div>
+        </ion-card-content>
+      </ion-card>
+      <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-buttons slot="start">
+                <ion-icon name="close-outline" style="color: white; font-size: 30px; cursor: pointer;"
+                  (click)="cancel();"></ion-icon>
+              </ion-buttons>
+              <ion-buttons slot="end">
+                <ion-icon name="checkmark-outline" style="color: white; font-size: 30px; cursor: pointer;"
+                  (click)="confirm();"></ion-icon>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <ion-item>
+              <ion-textarea placeholder="Introduce el mensaje" [autoGrow]="true" [value]="message" maxlength="150"
+                (ionChange)="prueba($event)">
+              </ion-textarea>
+            </ion-item>
+            <ion-item>
+              <ion-label style="text-align: right;">
+                {{ message?.length || 0 }} / 150
+              </ion-label>
+            </ion-item>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </ion-content>
+  </div>
 </ion-content>

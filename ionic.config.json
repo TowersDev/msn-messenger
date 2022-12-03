@@ -1,9 +1,7 @@
 {
   "name": "msn-messenger",
   "integrations": {
-    "capacitor": {
-      "enabled": false
-    },
+    "capacitor": {},
     "cordova": {}
   },
   "type": "angular"

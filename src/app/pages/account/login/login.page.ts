@@ -5,6 +5,7 @@ import { validateEmail } from '../../../utils/validations';
 import { isEmpty } from 'lodash';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Router } from '@angular/router';
+import { SpinnerService } from 'src/app/services/spinner.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginPage implements OnInit {
     public formBuilder: FormBuilder,
     public toastController: ToastController,
     public authService: AuthenticationService,
-    public router: Router
+    public router: Router,
+    public spinnerService: SpinnerService,
   ) {
     this.ionicForm = this.formBuilder.group({
       email: [''],
@@ -37,7 +39,6 @@ export class LoginPage implements OnInit {
 
   submitForm() {
     console.log(this.ionicForm.value.email);
-
     if (
       isEmpty(this.ionicForm.value.email) ||
       isEmpty(this.ionicForm.value.password)
@@ -46,29 +47,38 @@ export class LoginPage implements OnInit {
     } else if (!validateEmail(this.ionicForm.value.email)) {
       this.presentToast('El email no es correcto');
     } else {
+      this.spinnerService.showLoading();
       this.authService.signIn(this.ionicForm.value.email, this.ionicForm.value.password)
       .then((res) => {
+        this.spinnerService.endLoading();
         this.router.navigate(['tabs']);
       }).catch((error) => {
+        this.spinnerService.endLoading();
         this.presentToast('Email o contraseña incorrecta');
       });
     }
   }
 
   registrarFacebook() {
+    this.spinnerService.showLoading();
     this.authService.facebookAuth()
     .then((res) => {
+      this.spinnerService.endLoading();
       this.router.navigate(['tabs/account']);
     }).catch((error) => {
+      this.spinnerService.endLoading();
       this.presentToast('El email ya está en uso.');
     });
   }
 
   registrarGoogle() {
+    this.spinnerService.showLoading();
     this.authService.googleAuth()
     .then((res) => {
+      this.spinnerService.endLoading();
       this.router.navigate(['tabs/account']);
     }).catch((error) => {
+      this.spinnerService.endLoading();
       this.presentToast('El email ya está en uso.');
     });
   }

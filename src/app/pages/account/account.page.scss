@@ -1,14 +1,23 @@
-ion-card-header {
-  text-align: right;
+.settings {
+  float: right;
+}
+
+ion-icon {
+  --ionicon-stroke-width: 10%;
 }
 
 ion-card-content {
+  font-family: 'Nerko One', cursive;
+  font-size: 20px;
   text-align: center;
 }
 
 .avatar {
-  border-radius: 50%;
+  border-radius: 25%;
   width: 150px;
   height: 150px;
   object-fit: cover;
+  margin-bottom: 15px;
+  box-shadow: 0px 6px 5px #000;
+  border: 2px solid #2d2b2b;
 }

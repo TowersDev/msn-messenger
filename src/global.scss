@@ -24,3 +24,16 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import url('https://fonts.googleapis.com/css2?family=Nerko+One&family=Raleway:ital,wght@0,100;0,400;1,300&display=swap');
+
+ion-loading.custom-loading {
+  --background: transparent;
+
+  .loading-wrapper {
+    box-shadow: none;
+  }
+}
+
+ion-spinner {
+  transform: scale(3);
+}
